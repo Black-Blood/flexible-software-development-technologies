@@ -1,17 +1,56 @@
 import java.util.*;
-import java.nio.file.Paths;
+import java.util.stream.IntStream;
+
 public class Main {
     public static void main(String[] args) {
         runLaboratoryWork1();
-        runLaboratoryWork3();
+        runLaboratoryWork4();
     }
 
-    private static void runLaboratoryWork3(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Введіть шлях до кореневого каталогу: ");
-        String rootPath = scanner.nextLine();
-        ToyDirectory.create(Paths.get(rootPath));
-        ToyDirectory.navigate(Paths.get(rootPath));
+    private static void runLaboratoryWork4(){
+        List<String> Header = List.of("A", "B", "C", "A && B && C", "A && B || C", "A || B && C", "A || B || C");
+
+        List<Boolean> A = List.of(false, false, false, true, true, true, false, true);
+        List<Boolean> B = List.of(false, false, true, false, true, false, true, true);
+        List<Boolean> C = List.of(false, true, false, false, false, true, true, true);
+
+        List<Boolean> A_and_B_and_C = IntStream.range(0, A.size()).mapToObj((i) -> (A.get(i) && B.get(i) && C.get(i))).toList();
+        List<Boolean> A_and_B_or_C = IntStream.range(0, A.size()).mapToObj((i) -> (A.get(i) && B.get(i) || C.get(i))).toList();
+        List<Boolean> A_or_B_and_C = IntStream.range(0, A.size()).mapToObj((i) -> (A.get(i) || B.get(i) && C.get(i))).toList();
+        List<Boolean> A_or_B_or_C = IntStream.range(0, A.size()).mapToObj((i) -> (A.get(i) || B.get(i) || C.get(i))).toList();
+
+
+        // Розрахунок ширини колонок
+        List<Integer> columnSizes = Header
+                .stream()
+                .map((c) -> 17)
+                .toList();
+
+
+        // Форматування рядку таблиця
+        String row = "|" + String.join("|", columnSizes.stream().map((c) -> "   %-" + (c - 3) + "s").toList()) + "|\n";
+
+        // Рамки таблиці
+        String rowSplitter = "+" + String.join("+", columnSizes.stream().map("-"::repeat).toList()) + "+";
+
+        // Заголовок таблиці
+        System.out.println(rowSplitter);
+        System.out.printf(row, Header.toArray());
+        System.out.println(rowSplitter);
+
+        // Дані таблиці
+        for(int i = 0; i < Header.size(); i++) {
+            System.out.printf(row,
+                    A.get(i),
+                    B.get(i),
+                    C.get(i),
+                    A_and_B_and_C.get(i),
+                    A_and_B_or_C.get(i),
+                    A_or_B_and_C.get(i),
+                    A_or_B_or_C.get(i)
+            );
+            System.out.println(rowSplitter);
+        }
     }
 
     private static void runLaboratoryWork1() {
@@ -49,33 +88,5 @@ public class Main {
         //endregion
 
 
-        //region "Код завдання 2"
-        String line1 = "I like Java !!!";
-        String line2 = "Я вивчаю Java!";
-
-        // Роздрукувати останній символ рядка
-        System.out.println("Останній символ line1: " + line1.charAt(line1.length() - 1)); // !
-        System.out.println("Останній символ line2: " + line2.charAt(line2.length() - 1)); // !
-
-        // перевірити чи закінчується рядок підрядком “!!!”
-        System.out.println("line1 закінчується на '!!!': " + line1.endsWith("!!!")); // true
-        System.out.println("line2 закінчується на '!!!': " + line2.endsWith("!!!")); // false
-
-        // перевірити чи починається рядок підрядком “I like”
-        System.out.println("line1 починається з 'I like': " + line1.startsWith("I like")); // true
-        System.out.println("line2 починається з 'I like': " + line2.startsWith("I like")); // false
-
-        // перевірити чи містить рядок підрядок “Java”
-        System.out.println("line1 містить 'Java': " + line1.contains("Java")); // true
-        System.out.println("line2 містить 'Java': " + line2.contains("Java")); // true
-
-        // замінити всі символи “a” на “o”
-        System.out.println("line1 з 'а' на 'о': " + line1.replace('a', 'о')); // I like Jovо !!!
-        System.out.println("line2 з 'а' на 'о': " + line2.replace('а', 'о')); // Я вивчою Jovо!
-
-        // вирізати рядок “Java”
-        System.out.println("line1 без 'Java': " + line1.substring(0, 7) + line1.substring(12)); // I like !!!
-        System.out.println("line2 без 'Java': " + line2.substring(0, 9) + line2.substring(13)); // Я вивчаю !
-        //endregion
     }
 }

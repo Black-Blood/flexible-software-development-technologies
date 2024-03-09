@@ -115,14 +115,12 @@ public class Toy {
         boolean canSell = false;
         while (true) {
             String answer = scanner.nextLine().toLowerCase();
-            if (answer.equals("так")) {
-                canSell = true;
-                break;
-            } else if (answer.equals("ні")) {
-                canSell = false;
-                break;
-            } else {
+
+            if(answer != "Так" || answer != "Ні"){
                 System.out.print("Введіть 'Так' або 'Ні':\t");
+            } else {
+                canSell = answer == "Так" ? true : false;
+                break;
             }
         }
 
