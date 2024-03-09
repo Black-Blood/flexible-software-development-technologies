@@ -80,13 +80,13 @@ public class Toy {
 
         System.out.print("Введіть ціну (число з двома знаками після коми):\t");
         Double price = null;
-        while (price == null) {
+        do {
             try {
                 price = Double.valueOf(scanner.nextLine());
             } catch (NumberFormatException e) {
                 System.out.print("Введено некоректне значення. Ціна - це число з двома знаками після коми. Спробуйте ще раз:\t");
             }
-        }
+        } while (price == null);
 
         System.out.print("Введіть матеріал іграшки:\t");
         String material = scanner.nextLine();
@@ -116,11 +116,11 @@ public class Toy {
         while (true) {
             String answer = scanner.nextLine().toLowerCase();
 
-            if(answer != "Так" || answer != "Ні"){
-                System.out.print("Введіть 'Так' або 'Ні':\t");
-            } else {
-                canSell = answer == "Так" ? true : false;
+            if(answer.equals("так") || answer.equals("ні")){
+                canSell = answer == "так" ? true : false;
                 break;
+            } else {
+                System.out.print("Введіть 'Так' або 'Ні':\t");
             }
         }
 
