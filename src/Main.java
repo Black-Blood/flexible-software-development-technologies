@@ -1,24 +1,22 @@
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.*;
-
+import java.nio.file.Paths;
 public class Main {
     public static void main(String[] args) {
-        Main.runLaboratoryWork1();
+        runLaboratoryWork1();
+        runLaboratoryWork3();
+    }
+
+    private static void runLaboratoryWork3(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Введіть шлях до кореневого каталогу: ");
+        String rootPath = scanner.nextLine();
+        ToyDirectory.create(Paths.get(rootPath));
+        ToyDirectory.navigate(Paths.get(rootPath));
     }
 
     private static void runLaboratoryWork1() {
         //region "Код завдання 1 + ускладнене завдання"
-        List<Toy> toys = List.of(
-                new Toy("Лялька", "М'яка", (byte) 3, 250.5, "Плюш", 1, LocalDate.of(2025, Month.FEBRUARY, 2), true),
-                new Toy("Машинка", "Іграшкова", (byte) 2, 150.0, "Пластик", 2, LocalDate.of(2024, Month.FEBRUARY, 15), true),
-                new Toy("Пазли", "Розвиваюча", (byte) 5, 300.0, "Картон", 1, LocalDate.of(2024, Month.AUGUST, 10), false),
-                new Toy("Кубики", "Розвиваюча", (byte) 1, 200.0, "Дерево", 10, LocalDate.of(2026, Month.JUNE, 3), true),
-                new Toy("М'яч", "Спортивна", (byte) 3, 100.0, "Гума", 1, LocalDate.of(2027, Month.DECEMBER, 7), true),
-                new Toy("Настільна гра", "Розважальна", (byte) 8, 400.0, "Картон", 1, LocalDate.of(2027, Month.NOVEMBER, 9), true),
-                new Toy("Робот", "Інтерактивна", (byte) 6, 600.0, "Пластик", 1, LocalDate.of(2026, Month.SEPTEMBER, 15), false),
-                new Toy("Пістолет", "Іграшкова", (byte) 10, 100.0, "Пластик", 1, LocalDate.of(2024, Month.FEBRUARY, 21), true)
-        );
+        List<Toy> toys = List.of(Toy.createToy());
 
         // Розрахунок ширини колонок
         List<Integer> columnSizes = Toy
